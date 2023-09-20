@@ -1,0 +1,11 @@
+
+for TailWind Css 
+
+npm install -D tailwindcss postcss autoprefixer 
+npx tailwindcss init -p
+
+
+for React Vite install
+
+npm create vite@latest
+ npm i/npm install

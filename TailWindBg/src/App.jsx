@@ -17,9 +17,9 @@ function App() {
     "gray",
   ];
 
-  const handleColorChange = (newColor) => {
-    setColor(newColor);
-  };
+  // const handleColorChange = (newColor) => {
+  //   setColor(newColor);
+  // };
 
   const handleCustomColorChange = () => {
     setColor(customColor);

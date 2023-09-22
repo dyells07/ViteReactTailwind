@@ -1,0 +1,183 @@
+/* App.css */
+
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container Styles */
+.container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  width: 300px;
+}
+
+/* Heading Styles */
+h1 {
+  color: #333;
+  font-size: 24px;
+}
+
+/* Password Input Styles */
+.password-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 10px;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Copy Button Styles */
+.copy-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.copy-button:hover {
+  background-color: #0056b3;
+}
+
+/* Password Options Container Styles */
+.password-options {
+  margin-top: 20px;
+}
+
+/* Range Input Styles */
+.range-input {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Checkbox Container Styles */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Checkbox Styles */
+.checkbox {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+/* Checkbox Label Styles */
+.checkbox-label {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Toast Notification Styles (for toastrService) */
+.toast {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 16px;
+  display: none;
+}
+
+.toast.show {
+  display: block;
+}
+
+.toast.success {
+  background-color: #28a745;
+}
+
+.toast.error {
+  background-color: #dc3545;
+}
+
+.toast.info {
+  background-color: #17a2b8;
+}
+
+.toast.warning {
+  background-color: #ffc107;
+}
+/* App.css */
+
+/* Styles for the Checkbox Label Text */
+.checkbox-label {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Styles for the Range Input Label */
+.range-label {
+  font-size: 14px;
+  color: #555;
+  margin-top: 5px;
+}
+
+/* Styles for the Password Strength Indicator Container */
+.password-strength-container {
+  margin-top: 20px;
+  text-align: left;
+}
+
+/* Styles for the Password Strength Text */
+.password-strength-text {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Styles for Password Strength Bars */
+.password-strength-bar {
+  height: 6px;
+  background-color: #ccc;
+  margin-top: 5px;
+}
+
+.password-strength-bar-weak {
+  background-color: #ff6b6b; /* Red */
+}
+
+.password-strength-bar-medium {
+  background-color: #ffc107; /* Yellow */
+}
+
+.password-strength-bar-strong {
+  background-color: #28a745; /* Green */
+}
+
+/* Styles for the Reset Button */
+.reset-button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.reset-button:hover {
+  background-color: #555;
+}

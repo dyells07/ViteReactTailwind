@@ -1,0 +1,15 @@
+/* About.css */
+
+.about-image {
+    transition: transform 0.3s ease-in-out;
+    height: 100%; /* Set the initial width of the image */
+    width:800px;
+  }
+  
+  
+  .about-image:hover {
+    transform: scale(1.1);
+  }
+  
+
+  

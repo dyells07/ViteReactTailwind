@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function Card() {
+    const { themeMode } = useTheme();
     const products = [
         {
           id: 1,
@@ -38,7 +39,7 @@ export default function Card() {
       ]
       
     return (
-        <div className="bg-white">
+        <div className={`w-full aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8 ${themeMode === 'dark' ? 'dark-bg-gray-800 dark-border-gray-700' : ''}`}>
             
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <h2 className="sr-only">Products</h2>

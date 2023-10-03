@@ -8,7 +8,15 @@ npx tailwindcss init -p
 for React Vite install
 
 npm create vite@latest
+ cd <projectName>
+  npm install
+  npm run dev
  npm i/npm install
 
 
  npm install react-router-dom localforage match-sorter sort-by cd 
+
+
+
+ store hunchha store vitra mini portion hunchha 
+ useSelector useDispatcher

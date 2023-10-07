@@ -43,6 +43,7 @@ namespace RestrurantAPI.Controllers
 
         // POST: api/Customer
         [HttpPost]
+        //[Route("api/Customer/PostCustomer")]
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
             _context.Customers.Add(customer);

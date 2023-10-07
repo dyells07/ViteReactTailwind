@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<RestaurantDbContext>(options =>
 {
@@ -16,6 +18,11 @@ builder.Services.AddDbContext<RestaurantDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
         );
 });
+builder.Services.AddCors(c =>
+{
+    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+});
+
 // Add CORS services and configure a CORS policy.
 builder.Services.AddCors(options =>
 {

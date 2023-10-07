@@ -9,7 +9,7 @@ using RestrurantAPI.Models;
 
 namespace RestrurantAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {

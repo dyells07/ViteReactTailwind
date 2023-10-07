@@ -1,12 +1,14 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using RestrurantAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddDbContext<RestaurantDbContext>(options =>
 {
@@ -14,9 +16,23 @@ builder.Services.AddDbContext<RestaurantDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
         );
 });
+// Add CORS services and configure a CORS policy.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAnyOrigin", builder =>
+    {
+        builder
+            .AllowAnyOrigin() // Allow requests from any origin
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Configure other services here...
 
 var app = builder.Build();
 
@@ -31,6 +47,14 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+// Use CORS with the specific policy before mapping controllers.
+app.UseCors("AllowAnyOrigin");
+
 app.MapControllers();
 
 app.Run();
+
+
+
+
+

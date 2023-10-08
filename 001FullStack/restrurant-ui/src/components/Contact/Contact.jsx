@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
-import { BaseUrl } from '../../../utils/ApiRoutes';
+import { BaseUrl} from '../../../utils/ApiRoutes';
+import { Link,useNavigate} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faSave } from '@fortawesome/free-solid-svg-icons';
 
 export default function Contact() {
     const [name, setName] = useState('');
-
+    const navigate = useNavigate(); 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`${BaseUrl}api/Customer/PostCustomer`, {
+            const response = await fetch(`${BaseUrl}Customer/PostCustomer`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                'Content-type': 'application/json',
                 },
                 body: JSON.stringify({ customerName: name }),
             });
 
             if (response.ok) {
-                // Successfully created customer, you can handle the success case here
                 console.log('Customer created successfully');
-                // Optionally, you can reset the name field
-                setName('');
+                navigate(-1); 
             } else {
-                // Handle errors, if any
                 console.error('Error creating customer');
             }
         } catch (error) {
@@ -32,9 +32,7 @@ export default function Contact() {
 
     return (
         <div className="relative flex items-top justify-center min-h-[700px] bg-white sm:items-center sm:pt-0">
-            {/* ... (your existing content) ... */}
             <form className="p-6 flex flex-col justify-center" onSubmit={handleSubmit}>
-                {/* Name */}
                 <div className="flex flex-col mt-2">
                     <label htmlFor="name">Name</label>
                     <input
@@ -47,14 +45,22 @@ export default function Contact() {
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>
-
-                {/* Submit Button */}
-                <button
-                    type="submit"
-                    className="md:w-32 bg-orange-700 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover:bg-orange-600 transition ease-in-out duration-300"
-                >
-                    Submit
-                </button>
+                <div className="flex justify-between mt-3">
+                    <Link
+                        to="/"
+                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                    >
+                        <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+                        Back to list
+                    </Link>
+                    <button
+                        type="submit"
+                        className="md:w-32 bg-green-700 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition ease-in-out duration-300"
+                    >
+                        <FontAwesomeIcon icon={faSave} className="mr-2" />
+                        Save
+                    </button>
+                </div>
             </form>
         </div>
     );

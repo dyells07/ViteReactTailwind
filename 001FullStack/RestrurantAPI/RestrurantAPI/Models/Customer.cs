@@ -10,7 +10,9 @@ namespace RestrurantAPI.Models
     public class Customer
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CustomerID { get; set; }
+
 
         [Column(TypeName ="nvarchar(100)")]
         public string CustomerName { get; set; }

@@ -1,0 +1,92 @@
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate,Link} from 'react-router-dom';
+import { BaseUrl } from '../../../utils/ApiRoutes';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faSave } from '@fortawesome/free-solid-svg-icons';
+
+export default function EditCustomer() {
+    const customerId = parseInt(useParams().customerId, 10);
+    const navigate = useNavigate(); 
+  const [customerData, setCustomerData] = useState({});
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    async function fetchCustomerDetails() {
+      try {
+        const response = await fetch(`${BaseUrl}Customer/GetCustomer/${customerId}`);
+        if (response.ok) {
+          const data = await response.json();
+          setCustomerData(data);
+          setName(data.customerName);
+        } else {
+          console.error('Error fetching customer details');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    fetchCustomerDetails();
+  }, [customerId]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`${BaseUrl}Customer/PutCustomer/${customerId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ customerName: name, customerId: customerId }),
+      });
+
+      if (response.ok) {
+        console.log('Customer updated successfully');
+        navigate(-1); // Go back to the previous page
+      } else if (response.status === 400) {
+        console.error('Bad request: ID mismatch');
+      } else if (response.status === 404) {
+        console.error('Customer not found');
+      } else {
+        console.error('Error updating customer');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  return (
+    <div className="relative flex items-top justify-center min-h-[700px] bg-white sm:items-center sm:pt-0">
+      <form className="p-6 flex flex-col justify-center" onSubmit={handleSubmit}>
+        <div className="flex flex-col mt-2">
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Name"
+            className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="flex justify-between mt-3">
+        <Link
+                        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                        to="/"
+                    >
+                        <FontAwesomeIcon icon={faArrowLeft} className="mr-2" /> Back to list
+                    </Link>
+          <button
+            type="submit"
+            className="md:w-32 bg-green-700 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition ease-in-out duration-300"
+          >
+            <FontAwesomeIcon icon={faSave} className="mr-2" />
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}

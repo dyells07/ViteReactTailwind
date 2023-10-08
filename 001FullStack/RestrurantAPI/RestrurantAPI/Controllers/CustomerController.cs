@@ -43,9 +43,13 @@ namespace RestrurantAPI.Controllers
 
         // POST: api/Customer
         [HttpPost]
-        //[Route("api/Customer/PostCustomer")]
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
 
@@ -54,7 +58,7 @@ namespace RestrurantAPI.Controllers
 
         // PUT: api/Customer/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutCustomer(int id, [FromBody] Customer customer)
         {
             if (id != customer.CustomerID)
             {

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate
+import { useNavigate, Link } from 'react-router-dom'; 
 import { BaseUrl } from '../../../utils/ApiRoutes';
 
 export default function Home() {
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate(); 
 
     const [customers, setCustomers] = useState([]);
 
@@ -18,7 +18,6 @@ export default function Home() {
     }, []);
 
     const handleEditClick = (customerId) => {
-        // Navigate to the edit customer page using the navigate function
         navigate(`/editcustomer/${customerId}`);
     };
     const handleDeleteClick =async (customerId) => {
@@ -59,6 +58,8 @@ export default function Home() {
                                 <tr>
                                     <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Customer Id</th>
                                     <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Customer Name</th>
+                                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Customer Email</th>
+                                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Date of Birth</th>
                                     <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Edit</th>
                                     <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Delete</th>
                                 </tr>
@@ -68,11 +69,13 @@ export default function Home() {
                                     <tr key={customer.customerID}>
                                         <td className="px-6 py-4 whitespace-no-wrap">{customer.customerID}</td>
                                         <td className="px-6 py-4 whitespace-no-wrap">{customer.customerName}</td>
+                                        <td className="px-6 py-4 whitespace-no-wrap">{customer.email}</td>
+                                        <td className="px-6 py-4 whitespace-no-wrap">{customer.birthDate}</td>
                                         <td className="px-6 py-4 whitespace-no-wrap">
                                             <FontAwesomeIcon
                                                 icon={faEdit}
                                                 className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                                                onClick={() => handleEditClick(customer.customerID)} // Call the function on click
+                                                onClick={() => handleEditClick(customer.customerID)}
                                             />
                                         </td>
                                         <td className="px-6 py-4 whitespace-no-wrap">

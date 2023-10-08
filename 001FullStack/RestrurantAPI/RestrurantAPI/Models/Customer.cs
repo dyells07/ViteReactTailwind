@@ -13,8 +13,15 @@ namespace RestrurantAPI.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CustomerID { get; set; }
 
-
-        [Column(TypeName ="nvarchar(100)")]
+        [Required(ErrorMessage = "CustomerName is required")]
+        [Column(TypeName = "nvarchar(100)")]
         public string CustomerName { get; set; }
+
+        [Column(TypeName = "nvarchar(100)")]
+        public string Email { get; set; }
+
+        public DateTime? BirthDate { get; set; }
+        
     }
+
 }

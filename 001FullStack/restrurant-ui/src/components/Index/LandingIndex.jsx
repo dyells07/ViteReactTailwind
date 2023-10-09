@@ -1,54 +1,28 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function LandingIndex() {
-   
     return (
-        <div className="flex justify-center items-center h-screen">
-            <div className="p-4">
-                <div className="flex items-center justify-between mb-4">
-                    <h1 className="text-2xl font-semibold mb-4">Restrurant Application</h1>
-                    <Link
-                        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                        to="/addcustomer"
-                    >
-                        <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add Customer
-                    </Link>
-                </div>
-                <div className="overflow-x-auto mx-auto">
-                    <div className="overflow-y-auto max-h-96">
-                        <table className="w-1/2 min-w-max divide-y divide-gray-200">
-                            <thead className="sticky top-0 bg-gray-50">
-                                <tr>
-                                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Customer Id</th>
-                                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Customer Name</th>
-                                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Customer Email</th>
-                                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Date of Birth</th>
-                                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Edit</th>
-                                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
-                                {customers.map((customer) => (
-                                    <tr key={customer.customerID}>
-                                        <td className="px-6 py-4 whitespace-no-wrap">{customer.customerID}</td>
-                                        <td className="px-6 py-4 whitespace-no-wrap">{customer.customerName}</td>
-                                        <td className="px-6 py-4 whitespace-no-wrap">{customer.email}</td>
-                                        <td className="px-6 py-4 whitespace-no-wrap">{customer.birthDate}</td>
-                                        <td className="px-6 py-4 whitespace-no-wrap">
-                                            <FontAwesomeIcon
-                                                icon={faEdit}
-                                                className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                                                onClick={() => handleEditClick(customer.customerID)}
-                                            />
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-no-wrap">
-                                            <FontAwesomeIcon icon={faTrash} className="text-red-500 hover:text-red-700 cursor-pointer" onClick={() => handleDeleteClick(customer.customerID)}/>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+        <div className="mx-auto w-full max-w-7xl">
+            <aside className="relative overflow-hidden text-black rounded-lg sm:mx-16 mx-2 sm:py-16">
+                <div className="relative z-10 max-w-screen-xl px-4 pb-20 pt-10 sm:py-24 mx-auto sm:px-6 lg:px-8">
+                    <div className="max-w-xl sm:mt-1 mt-80 space-y-8 text-center sm:text-right sm:ml-auto">
+                        <h2 className="text-4xl font-bold text-gray-800">
+                            Welcome to Our Restro App!
+                        </h2>
+                        <p className="text-lg text-gray-600">
+                            Explore a wide range of delicious dishes and enjoy a seamless dining experience. Whether you're looking for a quick snack or a gourmet meal, we have it all. Order with ease and indulge in the flavors of our culinary delights.
+                        </p>
                     </div>
                 </div>
+
+                <div className="absolute inset-0 w-full sm:my-20 sm:pt-1 pt-12 h-full ">
+                    <img className="w-96" src="https://i.ibb.co/5BCcDYB/Remote2.png" alt="image1" />
+                </div>
+            </aside>
+
+            <div className="grid place-items-center sm:mt-20">
+                <img className="sm:w-96 w-48" src="https://i.ibb.co/2M7rtLk/Remote1.png" alt="image2" />
             </div>
         </div>
     );

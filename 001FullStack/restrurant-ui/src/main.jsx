@@ -7,13 +7,15 @@ import CustomerIndex from './components/Index/CustomerIndex.jsx'
 import AddCustomer from './components/Customer/AddCustomer.jsx'
 import User from './components/User/User.jsx'
 import EditCustomer from './components/Customer/EditCustomer'
+import LandingIndex from './components/Index/LandingIndex'
 
 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
-      <Route path='/' element={<CustomerIndex />} />
+      <Route path='/' element={<LandingIndex />} />
+      <Route path='/customer' element={<CustomerIndex />} />
       <Route path='/addcustomer' element={<AddCustomer />} />
       <Route path='user/:userid' element={<User />} />
       <Route path="/editcustomer/:customerId" element={<EditCustomer />} />

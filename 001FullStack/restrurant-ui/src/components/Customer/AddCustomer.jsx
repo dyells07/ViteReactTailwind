@@ -6,7 +6,7 @@ import { faArrowLeft, faSave,faCalendarAlt } from '@fortawesome/free-solid-svg-i
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default function Contact() {
+export default function AddCustomer() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState(''); 
     // const [dob, setDob] = useState('');

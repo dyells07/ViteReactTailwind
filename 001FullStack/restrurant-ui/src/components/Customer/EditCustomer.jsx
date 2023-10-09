@@ -17,24 +17,29 @@ export default function EditCustomer() {
 
   useEffect(() => {
     async function fetchCustomerDetails() {
-      try {
-        const response = await fetch(`${BaseUrl}Customer/GetCustomer/${customerId}`);
-        if (response.ok) {
-          const data = await response.json();
-          setCustomerData(data);
-          setName(data.customerName);
-          setEmail(data.email);
-          setDob(new Date(data.birthDate)); 
-        } else {
-          console.error('Error fetching customer details');
+        try {
+            const response = await fetch(`${BaseUrl}Customer/GetCustomer/${customerId}`);
+            if (response.ok) {
+                const data = await response.json();
+                setCustomerData(data);
+                setName(data.customerName);
+                setEmail(data.email);
+
+                if (data.birthDate) {
+                    setDob(new Date(data.birthDate));
+                } else {
+                    setDob(new Date()); 
+                }
+            } else {
+                console.error('Error fetching customer details');
+            }
+        } catch (error) {
+            console.error('Error:', error);
         }
-      } catch (error) {
-        console.error('Error:', error);
-      }
     }
 
     fetchCustomerDetails();
-  }, [customerId]);
+}, [customerId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -102,9 +107,9 @@ export default function EditCustomer() {
                     />
    <div className="absolute top-0 right-0 px-3 py-2 pointer-events-none">
     <FontAwesomeIcon icon={faCalendarAlt} size="3x" color="gray" />
-</div>
-    </div>
-    </div>
+      </div>
+        </div>
+          </div>
         <div className="flex justify-between mt-3">
         <Link
                         className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"

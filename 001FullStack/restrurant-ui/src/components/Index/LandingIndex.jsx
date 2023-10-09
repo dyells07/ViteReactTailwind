@@ -1,52 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate, Link } from 'react-router-dom'; 
-import { BaseUrl } from '../../../utils/ApiRoutes';
 
-export default function Home() {
-    const navigate = useNavigate(); 
-
-    const [customers, setCustomers] = useState([]);
-
-    useEffect(() => {
-        fetch(`${BaseUrl}Customer/GetCustomers`)
-            .then(response => response.json())
-            .then(data => {
-                setCustomers(data);
-            })
-    }, []);
-
-    const handleEditClick = (customerId) => {
-        navigate(`/editcustomer/${customerId}`);
-    };
-    const handleDeleteClick =async (customerId) => {
-
-        try {
-            const response = await fetch(`${BaseUrl}Customer/DeleteCustomer/${customerId}`, {
-                method: 'DELETE',
-            });
-
-            if (response.ok) {
-                console.log('Customer created successfully');
-                window.location.reload();
-            } else {
-                console.error('Error creating customer');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-        
-    };
-
+export default function LandingIndex() {
+   
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="p-4">
                 <div className="flex items-center justify-between mb-4">
-                    <h1 className="text-2xl font-semibold mb-4">Customer List</h1>
+                    <h1 className="text-2xl font-semibold mb-4">Restrurant Application</h1>
                     <Link
                         className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                        to="/Contact"
+                        to="/addcustomer"
                     >
                         <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add Customer
                     </Link>

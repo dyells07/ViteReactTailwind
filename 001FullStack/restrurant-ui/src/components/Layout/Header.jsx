@@ -13,7 +13,7 @@ export default function Header() {
                             alt="Logo"
                         />
                     </Link>
-                   
+                    <div id="toast" class="toast"></div>
                     <div
                         className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
                         id="mobile-menu-2"
@@ -37,6 +37,16 @@ export default function Header() {
                                     }
                                 >
                                 Manage Customer
+                                </NavLink>
+                            </li> 
+                            <li>
+                                <NavLink
+                                to="/foodItem"
+                                    className={({isActive}) =>
+                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-700" : "text-gray-700"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                    }
+                                >
+                                Manage FoodItems
                                 </NavLink>
                             </li> 
                         </ul>

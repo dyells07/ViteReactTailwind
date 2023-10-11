@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 export default function Footer() {
     return (
         <footer className="bg-white border-y">
+             <div id="toast" class="toast"></div>
            <div className="sm:flex sm:items-center sm:justify-between">
                     <span className="text-sm text-gray-500 sm:text-center">
                         © 2023

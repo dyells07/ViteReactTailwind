@@ -10,7 +10,7 @@ namespace RestrurantAPI.Models
     public class FoodItem
     {
         [Key]
-                [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int FoodItemId { get; set; }
 
         [Column(TypeName ="nvarchar(100)")]

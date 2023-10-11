@@ -10,6 +10,7 @@ namespace RestrurantAPI.Models
     public class OrderMaster
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long OrderMasterId { get; set; }
 
         [Column(TypeName = "nvarchar(75)")]

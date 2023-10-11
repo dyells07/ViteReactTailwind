@@ -28,16 +28,15 @@ export default function AddFoodItem() {
             });
     
             if (response.ok) {
-                console.log('Customer created successfully');
+                toastr.success('FoodItem created successfully');
                 navigate(-1);
             } else {
-                console.error('Error creating customer');
+                toastr.error('Error creating FoodItem');
             }
         } catch (error) {
-            console.error('Error:', error);
+            toastr.error('Error:', error);
         }
     };
-    
 
     return (
         <div className="relative flex items-top justify-center min-h-[700px] bg-white sm:items-center sm:pt-0">

@@ -1,172 +1,122 @@
 import React, { useState } from 'react';
 import { BaseUrl } from '../../../utils/ApiRoutes';
-import { Link, useNavigate } from 'react-router-dom';
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
 
-export default function CreateOrder() {
-    const [order, setOrder] = useState({
-        orderMasterId: 0,
-        orderNumber: '',
+const CreateOrderForm = () => {
+    const [customerData, setCustomerData] = useState({
         customerId: 0,
-        customer: {
-            customerID: 0,
-            customerName: '',
-            email: '',
-            birthDate: '',
-        },
-        pMethod: '',
-        gTotal: 0,
-        orderDetails: [
-            {
-                orderDetailId: 0,
-                orderMasterId: 0,
-                foodItemId: 0,
-                foodItem: {
-                    foodItemId: 0,
-                    foodItemName: '',
-                    price: 0,
-                },
-                foodItemPrice: 0,
-                quantity: 0,
-            },
-        ],
-        deletedOrderItemIds: '',
+        customerName: '',
+        email: '',
+        birthDate: ''
     });
 
-    const navigate = useNavigate();
+    const [foodItemData, setFoodItemData] = useState({
+        foodItemName: '',
+        price: 0,
+        quantity: 0
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const formData = {
+            orderMasterId: 0,
+            orderNumber: '', // Add order number logic if needed
+            customerId: customerData.customerId,
+            pMethod: '', // Add payment method logic if needed
+            gTotal: 0, // Add total calculation logic if needed
+            orderDetails: [
+                {
+                    orderDetailId: 0,
+                    orderMasterId: 0,
+                    foodItemId: 0,
+                    foodItem: {
+                        foodItemId: 0,
+                        foodItemName: foodItemData.foodItemName,
+                        price: foodItemData.price
+                    },
+                    foodItemPrice: foodItemData.price,
+                    quantity: foodItemData.quantity
+                }
+            ],
+            deletedOrderItemIds: ''
+        };
+
         try {
-            const response = await fetch(`${BaseUrl}Order/PostOrder`, {
+            const response = await fetch(`${BaseUrl}Order/PostOrderMaster`, {
                 method: 'POST',
                 headers: {
-                    'Content-type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(order),
+                body: JSON.stringify(formData)
             });
 
             if (response.ok) {
-                console.log('Order created successfully');
-                navigate(-1);
+                toastr.success('Order created successfully');
+                // Reset the form after successful submission if needed
+                setCustomerData({
+                    customerId: 0,
+                    customerName: '',
+                    email: '',
+                    birthDate: ''
+                });
+                setFoodItemData({
+                    foodItemName: '',
+                    price: 0,
+                    quantity: 0
+                });
             } else {
-                console.error('Error creating order');
+                toastr.error('Failed to create order');
             }
         } catch (error) {
             console.error('Error:', error);
+            toastr.error('Error creating order');
         }
     };
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setOrder({
-            ...order,
-            [name]: value,
-        });
-    };
-
     return (
-        <div className="your-form-container">
-            <form className="your-form-class" onSubmit={handleSubmit}>
-                <label htmlFor="orderMasterId">Order Master ID</label>
-                <input
-                    type="number"
-                    name="orderMasterId"
-                    value={order.orderMasterId}
-                    onChange={handleInputChange}
-                    required
-                />
-                <label htmlFor="orderNumber">Order Number</label>
-                <input
-                    type="text"
-                    name="orderNumber"
-                    value={order.orderNumber}
-                    onChange={handleInputChange}
-                    required
-                />
-                <label htmlFor="customerId">Customer ID</label>
-                <input
-                    type="number"
-                    name="customerId"
-                    value={order.customerId}
-                    onChange={handleInputChange}
-                    required
-                />
-                <label htmlFor="customerName">Customer Name</label>
-                <input
-                    type="text"
-                    name="customerName"
-                    value={order.customer.customerName}
-                    onChange={(e) => setOrder({ ...order, customer: { ...order.customer, customerName: e.target.value } })}
-                    required
-                />
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    name="email"
-                    value={order.customer.email}
-                    onChange={(e) => setOrder({ ...order, customer: { ...order.customer, email: e.target.value } })}
-                    required
-                />
-                <label htmlFor="birthDate">Birth Date</label>
-                <input
-                    type="datetime-local"
-                    name="birthDate"
-                    value={order.customer.birthDate}
-                    onChange={(e) => setOrder({ ...order, customer: { ...order.customer, birthDate: e.target.value } })}
-                    required
-                />
-                <label htmlFor="pMethod">Payment Method</label>
-                <input
-                    type="text"
-                    name="pMethod"
-                    value={order.pMethod}
-                    onChange={handleInputChange}
-                    required
-                />
-                <label htmlFor="gTotal">Grand Total</label>
-                <input
-                    type="number"
-                    name="gTotal"
-                    value={order.gTotal}
-                    onChange={handleInputChange}
-                    required
-                />
-                <label htmlFor="foodItemName">Food Item Name</label>
-                <input
-                    type="text"
-                    name="foodItemName"
-                    value={order.orderDetails[0].foodItem.foodItemName}
-                    onChange={(e) => setOrder({ ...order, orderDetails: [{ ...order.orderDetails[0], foodItem: { ...order.orderDetails[0].foodItem, foodItemName: e.target.value } }] })}
-                    required
-                />
-                <label htmlFor="foodItemPrice">Food Item Price</label>
-                <input
-                    type="number"
-                    name="foodItemPrice"
-                    value={order.orderDetails[0].foodItemPrice}
-                    onChange={(e) => setOrder({ ...order, orderDetails: [{ ...order.orderDetails[0], foodItemPrice: e.target.value }] })}
-                    required
-                />
-                <label htmlFor="quantity">Quantity</label>
-                <input
-                    type="number"
-                    name="quantity"
-                    value={order.orderDetails[0].quantity}
-                    onChange={(e) => setOrder({ ...order, orderDetails: [{ ...order.orderDetails[0], quantity: e.target.value }] })}
-                    required
-                />
-                <label htmlFor="deletedOrderItemIds">Deleted Order Item IDs</label>
-                <input
-                    type="text"
-                    name="deletedOrderItemIds"
-                    value={order.deletedOrderItemIds}
-                    onChange={handleInputChange}
-                    required
-                />
+        <div className="max-w-md mx-auto p-6 border rounded shadow-lg">
+            <h2 className="text-xl font-semibold mb-4">Create Order</h2>
+            <form onSubmit={handleSubmit}>
+                {/* Customer Details Section */}
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-600">Customer ID:</label>
+                    <input type="number" value={customerData.customerId} onChange={(e) => setCustomerData({ ...customerData, customerId: e.target.value })} className="mt-1 p-2 w-full border rounded-md" />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-600">Customer Name:</label>
+                    <input type="text" value={customerData.customerName} onChange={(e) => setCustomerData({ ...customerData, customerName: e.target.value })} className="mt-1 p-2 w-full border rounded-md" />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-600">Email:</label>
+                    <input type="email" value={customerData.email} onChange={(e) => setCustomerData({ ...customerData, email: e.target.value })} className="mt-1 p-2 w-full border rounded-md" />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-600">Birth Date:</label>
+                    <input type="date" value={customerData.birthDate} onChange={(e) => setCustomerData({ ...customerData, birthDate: e.target.value })} className="mt-1 p-2 w-full border rounded-md" />
+                </div>
 
-                <button type="submit">Save Order</button>
+                {/* Food Item Details Section */}
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-600">Food Item Name:</label>
+                    <input type="text" value={foodItemData.foodItemName} onChange={(e) => setFoodItemData({ ...foodItemData, foodItemName: e.target.value })} className="mt-1 p-2 w-full border rounded-md" />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-600">Food Item Price:</label>
+                    <input type="number" value={foodItemData.price} onChange={(e) => setFoodItemData({ ...foodItemData, price: e.target.value })} className="mt-1 p-2 w-full border rounded-md" />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-600">Quantity:</label>
+                    <input type="number" value={foodItemData.quantity} onChange={(e) => setFoodItemData({ ...foodItemData, quantity: e.target.value })} className="mt-1 p-2 w-full border rounded-md" />
+                </div>
+
+                <button type="submit" className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-green">
+                    Create Order
+                </button>
             </form>
         </div>
     );
-}
+};
+
+export default CreateOrderForm;

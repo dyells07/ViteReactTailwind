@@ -52,7 +52,7 @@ export default function Sidebar() {
               <ListItemPrefix>
                 <CubeTransparentIcon className="h-5 w-5" />
               </ListItemPrefix>
-              <Link to="/" className="text-blue-gray mr-auto font-normal">
+              <Link to="/orderlist" className="text-blue-gray mr-auto font-normal">
                 Dashboard
               </Link>
             </AccordionHeader>
@@ -63,8 +63,8 @@ export default function Sidebar() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to="/" className="text-blue-gray mr-auto font-normal">
-                Manage Order
+                <Link to="/createorder" className="text-blue-gray mr-auto font-normal">
+                Create Order
               </Link>
               </ListItem>
               <ListItem>

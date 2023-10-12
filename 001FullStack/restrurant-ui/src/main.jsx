@@ -12,6 +12,7 @@ import FoodItemIndex from './components/Index/FoodItemIndex'
 import AddFoodItem from './components/FoodItem/AddFoodItem'
 import EditFoodItem from './components/FoodItem/EditFoodItem'
 import CreateOrder from './components/OrderManagement/CreateOrder'
+import OrderList from './components/OrderManagement/OrderList'
 
 
 const router = createBrowserRouter(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path='/addfoodItem' element={<AddFoodItem />} />
       <Route path='/addcustomer' element={<AddCustomer />} />
       <Route path='/createorder' element={<CreateOrder />} />
+      <Route path='/orderlist' element={<OrderList />} />
       <Route path='/editfoodItem/:foodItemId' element={<EditFoodItem />} />
       <Route path='user/:userid' element={<User />} />
       <Route path="/editcustomer/:customerId" element={<EditCustomer />} />

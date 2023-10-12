@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export default function LandingIndex() {
     return (
@@ -17,7 +16,7 @@ export default function LandingIndex() {
                 </div>
 
                 <div className="absolute inset-0 w-full sm:my-20 sm:pt-1 pt-12 h-full ">
-                    <img className="w-96" src="/CaptureChefBack.png" alt="image1" />
+                    <img className="w-96" src="/CaptureChefBack.png" alt="image" />
                 </div>
             </aside>
         </div>

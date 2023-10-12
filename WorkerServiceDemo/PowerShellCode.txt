@@ -1,0 +1,3 @@
+sc.exe create WebsiteStatus binpath=G:\Projects\WorkerServiceDemo\PublishFolder\WorkerServiceDemo.exe start=auto
+
+sc.exe delete WebsiteStatus 

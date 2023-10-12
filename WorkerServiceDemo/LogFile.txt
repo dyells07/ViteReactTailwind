@@ -1,0 +1,45 @@
+2023-10-12 22:48:22.258 +05:45 [INF] Starting up the service
+2023-10-12 22:48:25.065 +05:45 [INF] The website is up. Status code "OK"
+2023-10-12 22:48:30.147 +05:45 [INF] The website is up. Status code "OK"
+2023-10-12 22:48:35.206 +05:45 [INF] The website is up. Status code "OK"
+2023-10-12 22:48:40.288 +05:45 [INF] The website is up. Status code "OK"
+2023-10-12 22:48:45.365 +05:45 [INF] The website is up. Status code "OK"
+2023-10-12 22:48:50.435 +05:45 [INF] The website is up. Status code "OK"
+2023-10-12 22:48:55.504 +05:45 [INF] The website is up. Status code "OK"
+2023-10-12 22:49:00.259 +05:45 [INF] The service has been stopped...
+2023-10-12 22:49:12.979 +05:45 [INF] Starting up the service
+2023-10-12 22:49:13.466 +05:45 [INF] The website is up. Status code "OK"
+2023-10-12 22:49:17.848 +05:45 [INF] The service has been stopped...
+2023-10-12 22:50:20.755 +05:45 [INF] Starting up the service
+2023-10-12 22:50:22.606 +05:45 [FTL] There was a problem starting the serivce
+System.PlatformNotSupportedException: ServiceController enables manipulating and accessing Windows services and it is not applicable for other operating systems.
+   at System.ServiceProcess.ServiceBase..ctor()
+   at Microsoft.Extensions.Hosting.WindowsServices.WindowsServiceLifetime..ctor(IHostEnvironment environment, IHostApplicationLifetime applicationLifetime, ILoggerFactory loggerFactory, IOptions`1 optionsAccessor, IOptions`1 windowsServiceOptionsAccessor)
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(Type serviceType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(Type serviceType, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.Extensions.Hosting.HostBuilder.<>c__DisplayClass35_0.<PopulateServiceCollection>b__2(IServiceProvider _)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitFactory(FactoryCallSite factoryCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(Type serviceType)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(Type serviceType, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at WorkerServiceDemo.Program.Main(String[] args) in G:\Projects\WorkerServiceDemo\WorkerServiceDemo\Program.cs:line 27

@@ -6,6 +6,7 @@ function Github() {
     const [followersData, setFollowersData] = useState([]);
     const [repos, setRepos] = useState([]);
     const [followingData, setFollowingData] = useState([]);
+    const [notFollowingBack, setNotFollowingBack] = useState([]);
 
     useEffect(() => {
       const fetchRepoData = async () => {
@@ -66,6 +67,13 @@ function Github() {
         }
     }, [data.login]);
 
+
+    useEffect(() => {
+        const notFollowingBackUsers = followingData.filter(following => !followersData.some(follower => follower.login === following.login));
+        setNotFollowingBack(notFollowingBackUsers);
+    }, [followersData, followingData]);
+
+
     return (
         <div className="bg-gray-100 p-6 min-h-screen">
             <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
@@ -100,7 +108,7 @@ function Github() {
 
                     <div>
                         <h2 className="text-2xl font-semibold">Following:</h2>
-                        <ul className="mt-2 space-y-2">
+                        <ol className="mt-2 space-y-2">
                             {followingData.map((following) => (
                                 <li key={following.login} className="flex items-center space-x-2">
                                     <a href={`https://github.com/${following.login}`} target="_blank" rel="noopener noreferrer">
@@ -109,16 +117,31 @@ function Github() {
                                     <span><a href={`https://github.com/${following.login}`} target="_blank" rel="noopener noreferrer">{following.login}</a></span>
                                 </li>
                             ))}
-                        </ul>
+                        </ol>
                     </div>
                     <div className="mt-6">
-                        <h2 className="text-2xl font-semibold">Repositories:</h2>
-                        <ul className="mt-2 list-disc list-inside">
-                            {repos.map((repo) => (
-                                <li key={repo.id}><a href={repo.html_url} target="_blank" rel="noopener noreferrer">{repo.name}</a></li>
-                            ))}
-                        </ul>
-                    </div>
+    <h2 className="text-2xl font-semibold">Repositories:</h2>
+    <ol type='1' className="mt-2 list-decimal list-inside">
+        {repos.map((repo) => (
+            <li key={repo.id}><a href={repo.html_url} target="_blank" rel="noopener noreferrer">{repo.name}</a></li>
+        ))}
+    </ol>
+</div>
+
+<div className="mt-6">
+                <h2 className="text-2xl font-semibold">Following Who doesnot Follow Back:</h2>
+                <ul className="mt-2 space-y-2">
+                    {notFollowingBack.map((user) => (
+                        <li key={user.login} className="flex items-center space-x-2">
+                            <a href={`https://github.com/${user.login}`} target="_blank" rel="noopener noreferrer">
+                                <img src={user.avatar_url} alt={`${user.login}'s avatar`} className="w-10 h-10 rounded-full" />
+                            </a>
+                            <span><a href={`https://github.com/${user.login}`} target="_blank" rel="noopener noreferrer">{user.login}</a></span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
                 </div>
             </div>
         </div>
@@ -128,6 +151,6 @@ function Github() {
 export default Github;
 
 export const githubInfoLoader = async () => {
-    const response = await fetch('https://api.github.com/users/dyells07');
+    const response = await fetch('https://api.github.com/users/shankarlmc');
     return response.json();
 };

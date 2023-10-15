@@ -95,7 +95,7 @@ export default function EditFoodItem() {
         <div className="flex justify-between mt-3">
         <Link
                         className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                        to="/"
+                        to="/foodItem"
                     >
                         <FontAwesomeIcon icon={faArrowLeft} className="mr-2" /> Back to list
                     </Link>

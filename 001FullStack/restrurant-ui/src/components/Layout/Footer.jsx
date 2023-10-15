@@ -31,7 +31,7 @@ export default function Footer() {
                             <span className="sr-only">Facebook page</span>
                         </Link>
                        
-                        <Link to="#" className="text-gray-500">
+                        <Link to="https://github.com/dyells07/ViteReactTailwind" className="text-gray-500">
                             <svg
                                 className="w-4 h-4"
                                 aria-hidden="true"

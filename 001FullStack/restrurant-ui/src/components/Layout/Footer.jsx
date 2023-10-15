@@ -6,7 +6,7 @@ export default function Footer() {
         <footer className="bg-white border-y">
              <div id="toast" class="toast"></div>
            <div className="sm:flex sm:items-center sm:justify-between">
-                    <span className="text-sm text-gray-500 sm:text-center">
+                    <span className="text-sm text-gray-900 sm:text-center">
                         © 2023
                         <a href="https://dyells07.github.io" className="hover:underline">
                             &nbsp; Restro Api
@@ -14,7 +14,7 @@ export default function Footer() {
                         . All Rights Reserved.
                     </span>
                     <div className="flex mt-4 space-x-5 md:justify-center sm:mt-0">
-                        <Link to="#" className="text-gray-500 hover:text-gray-900">
+                        <Link to="#" className="text-blue-500 hover:text-blue-500">
                             <svg
                                 className="w-4 h-4"
                                 aria-hidden="true"
@@ -31,7 +31,7 @@ export default function Footer() {
                             <span className="sr-only">Facebook page</span>
                         </Link>
                        
-                        <Link to="https://github.com/dyells07/ViteReactTailwind" className="text-gray-500">
+                        <Link to="https://github.com/dyells07/ViteReactTailwind" className="text-gray-900">
                             <svg
                                 className="w-4 h-4"
                                 aria-hidden="true"

@@ -39,55 +39,55 @@ export default function OrderList() {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="p-4">
-                <div className="flex items-center justify-between mb-4">
-                    <h1 className="text-2xl font-semibold mb-4">Orders List</h1>
-                    <Link
-                        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                        to="/addOrder"
-                    >
-                        <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add New Order
-                    </Link>
-                </div>
-                <div className="overflow-x-auto mx-auto">
-                    <div className="overflow-y-auto max-h-96">
-                        <table className="w-1/2 min-w-max divide-y divide-gray-200">
-                            <thead className="sticky top-0 bg-gray-50">
-                                <tr>
-                                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Order Number</th>
-                                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Customer Name</th>
-                                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Payment Method</th>
-                                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Edit</th>
-                                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Delete</th>
+        <div className="p-4">
+            <div className="flex items-center justify-between mb-4">
+                <h1 className="text-2xl font-semibold mb-4">Orders List</h1>
+                <Link
+                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                    to="/addOrder"
+                >
+                    <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add New Order
+                </Link>
+            </div>
+            <div className="overflow-x-auto mx-auto">
+                <div className="overflow-y-auto max-h-96">
+                    <table className="w-1/2 min-w-max divide-y divide-gray-200">
+                        <thead className="sticky top-0 bg-gray-50">
+                            <tr>
+                                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Order Number</th>
+                                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Customer Name</th>
+                                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Payment Method</th>
+                                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Edit</th>
+                                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                            {orders.map((order) => (
+                                <tr key={order.orderMasterId}>
+                                    <td className="px-6 py-4 whitespace-no-wrap">{order.orderNumber}</td>
+                                    <td className="px-6 py-4 whitespace-no-wrap">{order.customer.customerName}</td>
+                                    <td className="px-6 py-4 whitespace-no-wrap">{order.pMethod}</td>
+                                    <td className="px-6 py-4 whitespace-no-wrap">
+                                        <FontAwesomeIcon
+                                            icon={faEdit}
+                                            className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                                            onClick={() => handleEditClick(order.orderMasterId)}
+                                        />
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-no-wrap">
+                                        <FontAwesomeIcon
+                                            icon={faTrash}
+                                            className="text-red-500 hover:text-red-700 cursor-pointer"
+                                            onClick={() => handleDeleteClick(order.orderMasterId)}
+                                        />
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
-                                {orders.map((order) => (
-                                    <tr key={order.orderMasterId}>
-                                        <td className="px-6 py-4 whitespace-no-wrap">{order.orderNumber}</td>
-                                        <td className="px-6 py-4 whitespace-no-wrap">{order.customer.customerName}</td>
-                                        <td className="px-6 py-4 whitespace-no-wrap">{order.pMethod}</td>
-                                        <td className="px-6 py-4 whitespace-no-wrap">
-                                            <FontAwesomeIcon
-                                                icon={faEdit}
-                                                className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                                                onClick={() => handleEditClick(order.orderMasterId)}
-                                            />
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-no-wrap">
-                                            <FontAwesomeIcon
-                                                icon={faTrash}
-                                                className="text-red-500 hover:text-red-700 cursor-pointer"
-                                                onClick={() => handleDeleteClick(order.orderMasterId)}
-                                            />
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
     );
 }

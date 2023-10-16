@@ -15,7 +15,6 @@ export default function FoodItemIndex() {
         fetch(`${BaseUrl}FoodItem/GetFoodItems`)
           .then(response => {
             if (response.ok) {
-            //   toastr.success('Food items retrieved successfully and showing in the table');
               return response.json();
             } else {
               toastr.error('Failed to fetch food items from the server');

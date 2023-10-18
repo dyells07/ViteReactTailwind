@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { BaseUrl } from '../../../utils/ApiRoutes';
 import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
+import { BaseUrl } from '../../../utils/ApiRoutes';
 
 const CreateOrderForm = () => {
     const [customerData, setCustomerData] = useState({
@@ -15,7 +15,7 @@ const CreateOrderForm = () => {
     const [foodItemData, setFoodItemData] = useState({
         foodItemId: 0,
         foodItemName: '',
-        price: '',
+        price: 0, // Assuming price is a number
         quantity: 0
     });
 
@@ -23,63 +23,79 @@ const CreateOrderForm = () => {
     const [customers, setCustomers] = useState([]);
 
     useEffect(() => {
-        const fetchFoodItems = async () => {
+        const fetchData = async () => {
             try {
-                const response = await fetch(`${BaseUrl}FoodItem/GetFoodItems`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setFoodItems(data);
+                const customersResponse = await fetch(`${BaseUrl}Customer/GetCustomers`);
+                if (customersResponse.ok) {
+                    const customersData = await customersResponse.json();
+                    setCustomers(customersData);
+                } else {
+                    toastr.error('Failed to fetch customers');
+                }
+
+                const foodItemsResponse = await fetch(`${BaseUrl}FoodItem/GetFoodItems`);
+                if (foodItemsResponse.ok) {
+                    const foodItemsData = await foodItemsResponse.json();
+                    setFoodItems(foodItemsData);
                 } else {
                     toastr.error('Failed to fetch food items');
                 }
             } catch (error) {
-                console.error('Error fetching food items:', error);
-                toastr.error('Failed to fetch food items');
+                console.error('Error fetching data:', error);
+                toastr.error('Failed to fetch data');
             }
         };
-    
-        fetchFoodItems();
+
+        fetchData();
     }, []);
-    
-
-
 
     const handleCustomerChange = (selectedCustomerId) => {
-        const selectedCustomer = customers.find(
-            (customer) => customer.customerId === parseInt(selectedCustomerId)
-        );
-    
-        if (selectedCustomer) {
-            setCustomerData({
-                customerId: selectedCustomer.customerId,
-                customerName: selectedCustomer.customerName,
-                email: selectedCustomer.email,
-                birthDate: selectedCustomer.birthDate
-            });
-        } else {
-            // Reset customer data when no customer is selected
+        if (selectedCustomerId === 'new') {
+            // Creating a new customer
             setCustomerData({
                 customerId: 0,
                 customerName: '',
                 email: '',
                 birthDate: ''
             });
+            setIsCreatingNewCustomer(true);
+        } else {
+            // Selecting an existing customer
+            const selectedCustomer = customers.find(customer => customer.customerId === parseInt(selectedCustomerId)) || {
+                customerId: 0,
+                customerName: '',
+                email: '',
+                birthDate: ''
+            };
+    
+            setCustomerData(selectedCustomer);
+            setIsCreatingNewCustomer(false);
         }
     };
     
-    
+
+    const handleFoodItemChange = (selectedFoodItemId) => {
+        const selectedFoodItem = foodItems.find(item => item.foodItemId === selectedFoodItemId) || {
+            foodItemId: 0,
+            foodItemName: '',
+            price: 0,
+            quantity: 0
+        };
+
+        setFoodItemData(selectedFoodItem);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = {
-            orderNumber: '',
+            orderNumber: '', // Add logic to generate order number
             customerId: customerData.customerId,
-            pMethod: '',
-            gTotal: 0,
+            pMethod: '', // Add payment method logic
+            gTotal: 0, // Add logic to calculate total
             orderDetails: [
                 {
-                    foodItemId: foodItems.foodItemId,
+                    foodItemId: foodItemData.foodItemId,
                     foodItem: {
                         foodItemId: foodItemData.foodItemId,
                         foodItemName: foodItemData.foodItemName,
@@ -111,7 +127,7 @@ const CreateOrderForm = () => {
                 setFoodItemData({
                     foodItemId: 0,
                     foodItemName: '',
-                    price: '',
+                    price: 0,
                     quantity: 0
                 });
                 toastr.success('Order created successfully');
@@ -124,25 +140,6 @@ const CreateOrderForm = () => {
         }
     };
 
-    const handleFoodItemChange = (selectedFoodItemId) => {
-        const selectedFoodItem = foodItems.find((item) => item.foodItemId === selectedFoodItemId);
-        if (selectedFoodItem) {
-            setFoodItemData({
-                foodItemId: selectedFoodItem.foodItemId,
-                foodItemName: selectedFoodItem.foodItemName,
-                price: selectedFoodItem.price,
-                quantity: foodItemData.quantity // You might want to reset quantity here too
-            });
-        } else {
-            // Reset food item data when no item is selected
-            setFoodItemData({
-                foodItemName: '',
-                price: '',
-                quantity: 0
-            });
-        }
-    };
-    
     return (
         <div className="max-w-md mx-auto p-6 border rounded shadow-lg">
             <h2 className="text-xl font-semibold mb-4">Create Order</h2>
@@ -156,7 +153,7 @@ const CreateOrderForm = () => {
                         className="mt-1 p-2 w-full border rounded-md"
                     >
                         <option value="">Select Customer</option>
-                        {customers.map((customer) => (
+                        {customers.map(customer => (
                             <option key={customer.customerId} value={customer.customerId}>
                                 {customer.customerName}
                             </option>
@@ -167,64 +164,45 @@ const CreateOrderForm = () => {
 
                 {/* If creating a new customer, show input fields */}
                 {isCreatingNewCustomer && (
-                    <div>
-                        {/* New Customer Input Fields */}
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-600">Customer Name:</label>
-                            <input
-                                type="text"
-                                value={customerData.customerName}
-                                onChange={(e) => setCustomerData({ ...customerData, customerName: e.target.value })}
-                                className="mt-1 p-2 w-full border rounded-md"
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-600">Email:</label>
-                            <input
-                                type="email"
-                                value={customerData.email}
-                                onChange={(e) => setCustomerData({ ...customerData, email: e.target.value })}
-                                className="mt-1 p-2 w-full border rounded-md"
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-600">Birth Date:</label>
-                            <input
-                                type="date"
-                                value={customerData.birthDate}
-                                onChange={(e) => setCustomerData({ ...customerData, birthDate: e.target.value })}
-                                className="mt-1 p-2 w-full border rounded-md"
-                            />
-                        </div>
-                    </div>
+                    <CustomerDetails
+                        customerData={customerData}
+                        handleInputChange={(field, value) => setCustomerData({ ...customerData, [field]: value })}
+                    />
                 )}
+
+                {/* Food Item Details Section */}
                 <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-600">Food Item Name:</label>
-        <select
-          value={foodItemData.foodItemName}
-          onChange={(e) => handleFoodItemChange(parseInt(e.target.value))}
-          className="mt-1 p-2 w-full border rounded-md"
-        >
-          <option value="">Select Food Item</option>
-          {foodItems.map((item) => (
-            <option key={item.foodItemId} value={item.foodItemId}>
-              {item.foodItemName}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-600">Food Item Price:</label>
-        <input
-          type="number"
-          value={foodItemData.price}
-          onChange={(e) => setFoodItemData({ ...foodItemData, price: e.target.value })}
-          className="mt-1 p-2 w-full border rounded-md"
-        />
-      </div>
+                    <label className="block text-sm font-medium text-gray-600">Food Item Name:</label>
+                    <select
+                        value={foodItemData.foodItemId}
+                        onChange={(e) => handleFoodItemChange(parseInt(e.target.value))}
+                        className="mt-1 p-2 w-full border rounded-md"
+                    >
+                        <option value="">Select Food Item</option>
+                        {foodItems.map(item => (
+                            <option key={item.foodItemId} value={item.foodItemId}>
+                                {item.foodItemName}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-600">Food Item Price:</label>
+                    <input
+                        type="number"
+                        value={foodItemData.price}
+                        onChange={(e) => setFoodItemData({ ...foodItemData, price: parseFloat(e.target.value) })}
+                        className="mt-1 p-2 w-full border rounded-md"
+                    />
+                </div>
                 <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-600">Quantity:</label>
-                    <input type="number" value={foodItemData.quantity} onChange={(e) => setFoodItemData({ ...foodItemData, quantity: e.target.value })} className="mt-1 p-2 w-full border rounded-md" />
+                    <input
+                        type="number"
+                        value={foodItemData.quantity}
+                        onChange={(e) => setFoodItemData({ ...foodItemData, quantity: parseInt(e.target.value) })}
+                        className="mt-1 p-2 w-full border rounded-md"
+                    />
                 </div>
 
                 <button type="submit" className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-green">
@@ -235,13 +213,7 @@ const CreateOrderForm = () => {
     );
 };
 
-export default CreateOrderForm;
-
-
-
-
-
-const CustomerDetails = ({ isCreatingNewCustomer, customerData, handleInputChange }) => {
+const CustomerDetails = ({ customerData, handleInputChange }) => {
     return (
         <div>
             <div className="mb-4">
@@ -275,4 +247,4 @@ const CustomerDetails = ({ isCreatingNewCustomer, customerData, handleInputChang
     );
 };
 
-
+export default CreateOrderForm;
